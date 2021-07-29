@@ -38,6 +38,10 @@ Future<void> fun() async {
         snapshots(includeMetadataChanges: true)
         .listen((event) {
 
+          setState(() {
+          name = event.data()['token'];
+          });
+           
         if(event.data()['trigger'] == true){
           setState(() {
             status = ' Order Ready';
