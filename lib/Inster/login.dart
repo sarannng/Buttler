@@ -15,7 +15,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
- 
+ // this code has nothing to do with login functionality its here for calling testing purpose- code start
  Future<void> invokevibrate() async {
        if (await Vibration.hasCustomVibrationsSupport()) {
   for(int i=0; i<10; i++){
@@ -44,10 +44,12 @@ Future<void> fun() async {
   
 }
 
+ // this code has nothing to do with login functionality its here for calling testing purpose- code ends
+
 @override
 void initState()  { 
-   //testing
-     fun();
+   //testing the calling functionality- for testing remove comments from below fun() function call.
+    // fun();
   super.initState();
   
 }

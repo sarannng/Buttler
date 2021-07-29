@@ -18,7 +18,8 @@ int flexc1 = 0;
   void sendIdToCalling(String docid, String token){
     FirebaseFirestore.instance.collection('calling').doc().set({
         'docid': docid,
-        'token': token
+        'token': token,
+        'timestamp' : DateTime.now()
     });
 
 
@@ -31,7 +32,7 @@ int flexc1 = 0;
        body: Container(
          child:  StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
-                  .collection('/orders')
+                  .collection('/orders').orderBy('timestamp', descending: true )
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
