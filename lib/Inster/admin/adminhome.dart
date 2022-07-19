@@ -65,7 +65,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
             ],
           ),
-          title: Text('Admin Digi menu App '),
+          title: Text('Buttler Admin Module '),
         ),
         body: TabBarView(
           children: [

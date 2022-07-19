@@ -22,14 +22,7 @@ class _UserHomeState extends State<UserHome> {
   @override
   Widget build(BuildContext context) {
     Future<void> openScanner() async {
-      var status = await Permission.camera.status;
-      if (status.isDenied ||
-          status.isRestricted ||
-          status.isLimited ||
-          status.isUndetermined) {
-        Permission.camera.request();
-      }
-
+      
       String cameraScanResult = await scanner.scan();
 
       print(cameraScanResult);
@@ -116,7 +109,7 @@ class _UserHomeState extends State<UserHome> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Restaurent",
+                  "Restaurant",
                   style: GoogleFonts.poppins(
                       fontSize: 15, color: Color.fromRGBO(255, 227, 216, 1)),
                 ),
@@ -138,8 +131,19 @@ class _UserHomeState extends State<UserHome> {
                 shape: BoxShape.circle
               ),
               child: InkWell(
-                onTap: () {
+                onTap: () async {
+                  var status = await Permission.camera.status;
+      if (status.isDenied ||
+          status.isRestricted ||
+          status.isLimited ||
+          status.isUndetermined) {
+        Permission.camera.request();
+      }
+    if(status.isGranted){
+      
                   openScanner();
+    }
+
                 },
                 child: new Container(
                   //width: 100.0,

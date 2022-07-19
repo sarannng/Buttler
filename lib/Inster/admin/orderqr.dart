@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:vibration/vibration.dart';
 import 'package:yourchat/Inster/user/userhome.dart';
@@ -35,10 +36,20 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         qr = docID;
       });
+      var now = new DateTime.now();
+                                            var formatter =
+                                                new DateFormat('dd-MM-yyyy');
+                                            String ordertime =
+                                                DateFormat('kk:mm:a')
+                                                    .format(now);
+                                            String orderdate =
+                                                formatter.format(now);
+                                            print(ordertime);
+                                            print(orderdate);
       Firestore.instance.collection('/orders').document(docID).setData({
         'text': token(),
         'token': text1.text,
-        'timestamp': DateTime.now(),
+        'timestamp': '$ordertime' ,
         'calls': 0,
         'trigger': false
       });
@@ -79,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Inster",
+                Text("QR Generator",
                     style: GoogleFonts.poppins(
                         fontSize: 48,
                         color: Color.fromRGBO(255, 227, 216, 1),
@@ -91,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "express",
+                  "Enter the ",
                   style: GoogleFonts.poppins(
                       fontSize: 15, color: Color.fromRGBO(255, 227, 216, 1)),
                 ),
@@ -99,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 5,
                 ),
                 Text(
-                  "yourself",
+                  "TokenId",
                   style: GoogleFonts.poppins(
                       fontSize: 15, color: Color.fromRGBO(187, 187, 187, 1)),
                 )
@@ -120,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: InputDecoration(
                     fillColor: Color.fromRGBO(255, 227, 216, 0.5),
                     focusColor: Color.fromRGBO(255, 227, 216, 0.5),
-                    hintText: "Username",
+                    hintText: "TokenId",
                     hintStyle: GoogleFonts.poppins(
                         fontSize: 20,
                         color: Color.fromRGBO(255, 227, 216, 0.5))),
@@ -157,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: new Center(
                     child: Text(
-                      "Login",
+                      "Create",
                       style: GoogleFonts.poppins(
                           fontSize: 20, color: Color.fromRGBO(10, 4, 60, 1)),
                     ),
@@ -166,13 +177,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            RaisedButton(
-                onPressed: (){
-Navigator.push<void>(
-    context,
-    MaterialPageRoute<void>(
-      builder: (BuildContext context) =>   UserHome(),
-     )  );   }            ),
+//             RaisedButton(
+//                 onPressed: (){
+// Navigator.push<void>(
+//     context,
+//     MaterialPageRoute<void>(
+//       builder: (BuildContext context) =>   UserHome(),
+//      )  );   }            ),
 
             Container(
               color: Colors.white,

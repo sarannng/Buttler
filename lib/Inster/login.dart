@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vibration/vibration.dart';
+import 'package:yourchat/Flash_Me/home.dart';
+import 'package:yourchat/Flash_Me/swipe.dart';
 import 'package:yourchat/Inster/admin/adminhome.dart';
 
 import 'user/userhome.dart';
@@ -30,19 +32,19 @@ class _LoginState extends State<Login> {
 }
     }
 
-Future<void> fun() async {
-  await Firebase.initializeApp();
-   print('ot'); 
-        FirebaseFirestore.instance.collection('orders').doc('Bb6zBHcv8tnFFFg310wv').
-        snapshots(includeMetadataChanges: true)
-        .listen((event) {
-        if(event.data()['trigger'] == true){
-          invokevibrate();
-        }
-        print(event.data()['trigger']);
-        });
+// Future<void> fun() async {
+//   await Firebase.initializeApp();
+//    print('ot'); 
+//         FirebaseFirestore.instance.collection('orders').doc('Bb6zBHcv8tnFFFg310wv').
+//         snapshots(includeMetadataChanges: true)
+//         .listen((event) {
+//         if(event.data()['trigger'] == true){
+//           invokevibrate();
+//         }
+//         print(event.data()['trigger']);
+//         });
   
-}
+// }
 
  // this code has nothing to do with login functionality its here for calling testing purpose- code ends
 
@@ -91,9 +93,9 @@ void initState()  {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("express", style: GoogleFonts.poppins(fontSize: 15, color: Color.fromRGBO(255,227,216, 1)),),
+                Text("Queue", style: GoogleFonts.poppins(fontSize: 15, color: Color.fromRGBO(255,227,216, 1)),),
                 SizedBox(width: 5,),
-                Text("yourself", style: GoogleFonts.poppins(fontSize: 15, color: Color.fromRGBO(187,187,187, 1)),)
+                Text("organizer", style: GoogleFonts.poppins(fontSize: 15, color: Color.fromRGBO(187,187,187, 1)),)
 
 
 
@@ -145,9 +147,10 @@ Container(
   
   onTap: () async {
   print("hellp");
-   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AdminHome()));
+   //Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AdminHome()));
+ Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Swipe() ));
     //invokevibrate();
-    fun();
+    //fun();
  
   },
   child: new Container(
@@ -159,11 +162,21 @@ Container(
    //   border: new Border.all(color: Colors.white, width: 2.0),
       borderRadius: new BorderRadius.circular(10.0),
     ),
-    child: new Center(child: Text("Login", style:GoogleFonts.poppins(fontSize: 20, color: Color.fromRGBO(10,4,60, 1)) ,),),
+    child: new Center(child: Text("Admin", style:GoogleFonts.poppins(fontSize: 20, color: Color.fromRGBO(10,4,60, 1)) ,),),
   ),
 ),
    
 ),    
+
+
+
+
+  Center(
+    child: Text("OR", style: GoogleFonts.poppins(fontSize: 25, color: Color.fromRGBO(243,236,194, 1), fontWeight:FontWeight.w500)),
+  ),
+
+
+
 
 Container(
   padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
@@ -173,7 +186,7 @@ Container(
   print("hellp");
    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => UserHome()));
     //invokevibrate();
-    fun();
+    //fun();
  
   },
   child: new Container(

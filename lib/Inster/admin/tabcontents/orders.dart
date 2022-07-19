@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class Orders extends StatefulWidget {
@@ -24,7 +25,12 @@ int flexc1 = 0;
 
 
   }
-
+@override
+void initState() { 
+ Firebase.initializeApp();
+  super.initState();
+  
+}
  
   @override
   Widget build(BuildContext context) {
@@ -42,26 +48,44 @@ int flexc1 = 0;
                   case ConnectionState.waiting:
                     return new Text('Loading...');
                   default:  
-                    return new ListView(
+                    return new Container(
+                      padding: EdgeInsets.all(10),
+                      child: ListView(
                       children: snapshot.data.documents
                           .map((DocumentSnapshot document) {
                             
-                        return new ListTile(
+                        return new  Container(
+                                                    margin: EdgeInsets.only(top: 12),
+
+                           decoration: BoxDecoration(
+                             borderRadius: BorderRadius.circular(20),
+                             border: Border.all(color: Colors.black26, width: 1)
+                           ),
+                          child: ListTile(
+                          
                           onLongPress: (){
                             sendIdToCalling(document.id,document['token']);
                           },
 
-                          title: Text(document['token'], style: TextStyle(color: Colors.black, fontSize: 40),),
-                         // subtitle: Text(document['trigger'].toString()),
+                          leading: Text(document['token'], style: TextStyle(color: Colors.black, fontSize: 40),),
+                         title: Text(document['timestamp'].toString()),
+                           subtitle: Row(children: [
+                             Text('User Id ' +document['text']),
+                           ],),
+
+                           trailing:   Text(document['calls'].toString(), style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold, fontSize: 28),)
+                           ,
                           // trailing: new Image.network(document['qr'],
                           // ),
                           //trailing: Image.network(document['img']),
+                        ),
                         );
                       
                       
                       }).toList(),
-                    );
-                }
+                    ) 
+             ,
+                    );   }
               },
             ),
 

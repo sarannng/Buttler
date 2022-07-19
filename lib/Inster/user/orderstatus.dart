@@ -15,6 +15,7 @@ class Orderstatus extends StatefulWidget {
 class _OrderstatusState extends State<Orderstatus> {
   String name;
   String status = "We are preparing";
+  Color orderstatuscol = Colors.yellow.shade800;
 
   Future<void> invokevibrate() async {
     if (await Vibration.hasCustomVibrationsSupport()) {
@@ -39,12 +40,13 @@ class _OrderstatusState extends State<Orderstatus> {
         .snapshots(includeMetadataChanges: true)
         .listen((event) {
       setState(() {
-        name = event.data()['token'];
+        name =    event.data()['token'];
       });
 
       if (event.data()['trigger'] == true) {
         setState(() {
           status = ' Order Ready';
+          orderstatuscol = Colors.green;
         });
         invokevibrate();
       }
@@ -63,35 +65,105 @@ class _OrderstatusState extends State<Orderstatus> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+       padding: EdgeInsets.all(20),
+               color: Color.fromRGBO(3, 80, 111, 1),        
+               child: Container(
+                
+                     decoration: BoxDecoration(
+                       color: Colors.white,
+                   borderRadius: BorderRadius.circular(25)
+                 ),
+                 child: Column(
+                   
+                   crossAxisAlignment: CrossAxisAlignment.stretch,
+                     
+                    children: [
+                      Expanded(child: Container(
+                       
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                           children: [
+Container(
+  child: Column(
+    children: [                           Text('Order Status', style: TextStyle(color: Colors.black45, fontSize: 33, fontWeight: FontWeight.bold),),
+                         
+                                      SizedBox(height: 19,),
+                            Image.network(
+              'https://cdn.pixabay.com/photo/2018/08/30/16/57/coffee-3642712_960_720.png',
+              height: 200,
+              width: 200,
+            ), 
+             Divider(color: Colors.black, thickness: 3,),
+            
+            ],
+
+
+            
+  ),
+),
+                         
+
+                            
+Center(
+          child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment:  CrossAxisAlignment.center,
           children: [
-            Image.network(
-              'https://cdn.pixabay.com/photo/2015/08/19/23/27/burger-896771_1280.png',
-              height: 400,
-              width: 300,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text('Id: $name',
+           
+            
+           
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Token:',
                 style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30)),
+                    fontSize: 16)),
+              
+              Text('$name',  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22))
+              ],
+            ),
             SizedBox(
               height: 20,
             ),
             Text(
-              'Order status: $status ',
+              'Order status:  ',
               style: TextStyle(
-                  color: Colors.redAccent,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18),
+                  // color: Colors.yellow.shade800,
+                  // color: Colors.red.shade500,
+                  color: orderstatuscol,
+                     fontWeight: FontWeight.bold,
+                  fontSize: 28),
+            ),
+            Text(
+              '$status:  ',
+              style: TextStyle(
+                  // color: Colors.yellow.shade800,
+                  // color: Colors.red.shade500,
+                  color: orderstatuscol,
+                     fontWeight: FontWeight.bold,
+                  fontSize: 28),
             )
           ],
         ),
-      ),
-    );
+     
+        ),
+  
+
+
+                          ],
+                        ),
+                      ))
+                    ],),  
+               ),
+
+            ));
   }
 }
+
+
+
